@@ -1,0 +1,10 @@
+@import '../../styles/_shared.scss';
+
+.todo {
+  background-color: $todo-background;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 20%;
+  padding: 2rem;
+  gap:2rem;
+}

@@ -1,0 +1,61 @@
+@import '../../styles/_shared.scss';
+
+.todo__list {
+  font-weight: 400;
+    .todo__item {
+      position: relative;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      background-color: $item-background;
+      padding: 1rem;
+      margin-bottom: 4rem;
+
+      .todo__desc {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+      }
+
+
+      // border animation
+      &::after,
+      &::before {
+        content: '';
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        transition: all .5s ease-in;
+      }
+
+      &::after {
+        top: -1rem;
+        left: -1rem;
+        border-left: 1px solid $item-background;
+        border-top: 1px solid $item-background;
+      }
+
+      &::before {
+        right: -1rem;
+        bottom: -1rem;
+        border-right: 1px solid $item-background;
+        border-bottom: 1px solid $item-background;
+      }
+
+      &:hover::before,
+      &:hover::after {
+        width: calc(100% + 1.85rem);
+        height: calc(100% + 1.85rem);
+      }
+    }
+}
+
+.btn--delete {
+  background-color: transparent;
+  border: none;
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill:$window-background;
+  }
+}
