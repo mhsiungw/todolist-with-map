@@ -27,3 +27,12 @@
     background-color: $btn;
   }
 }
+
+.warning {
+ color: #d10808cf;
+ align-self: flex-end;
+ font-size: 1.5rem;
+  &.hide {
+    visibility: hidden;
+  }
+}

@@ -21,18 +21,25 @@ const TodoForm = () => {
     const dispatch = useActions()
     const inputEl = useRef<HTMLInputElement>(null)
     const [todo, setTodo] = useState<Todo>(initialState)
+    const [isInputEmpty, setInputEmpty] = useState(false)
+    const [errMessage, setErrMessage] = useState('Please fill all the the fields')
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault()
-            if (!todo.todo || !todo.address) return
+            if (!todo.todo || !todo.address) {
+                setErrMessage('Please fill all the the fields')
+                setInputEmpty(true)
+                return
+            }
             const [lat, lng] = await MapAPI.fetchLatLng(todo.address)
             todo.position = [lat, lng]
             dispatch(addTodo(todo))
             MapAPI.addMarker(todo)
             setTodo(initialState)
-        } catch (err) {
-            console.log(err)
+        } catch (err: any) {
+            setInputEmpty(true)
+            setErrMessage(err.message)
         }
     }
 
@@ -42,7 +49,10 @@ const TodoForm = () => {
                 <label htmlFor="todo">Todo</label>
                 <input
                     value={todo.todo}
-                    onChange={(e) => setTodo({ ...todo, todo: e.target.value })}
+                    onChange={(e) => {
+                        setInputEmpty(false)
+                        setTodo({ ...todo, todo: e.target.value })
+                    }}
                     id="todo"
                     className="todo__input--todo"
                     ref={inputEl}
@@ -52,13 +62,16 @@ const TodoForm = () => {
                 <label htmlFor="address">Address</label>
                 <input
                     value={todo.address}
-                    onChange={(e) => setTodo({ ...todo, address: e.target.value })}
+                    onChange={(e) => {
+                        setInputEmpty(false)
+                        setTodo({ ...todo, address: e.target.value })
+                    }}
                     id="address"
                     className="todo__
                     input--address"
                 />
             </div>
-
+            <span className={`warning ${isInputEmpty ? '' : 'hide'}`}>{errMessage}</span>
             <button>Submit</button>
         </form>
     )

@@ -14,7 +14,6 @@ class _MapAPI {
     loadMap = (): void => {
         this.loader
             .then((google) => {
-                console.log('loadMap')
                 this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
                     center: { lat: 23.6978, lng: 120.9605 },
                     zoom: 5,
@@ -32,9 +31,7 @@ class _MapAPI {
                 let marker = new google.maps.Marker({ map: this.map, position: { lat, lng }, id: todo.id })
 
                 this.markers.push(marker)
-                console.log('addmarker')
-                console.log(this.map)
-                console.log(this.markers)
+
                 const infowindow = new google.maps.InfoWindow()
                 infowindow.setContent(todo.todo)
                 infowindow.open(this.map, marker)
