@@ -1,7 +1,6 @@
 import './TodoForm.scss'
 import { v4 as uuidv4 } from 'uuid'
 import { useActions } from '../../hooks/useActions'
-import { useDispatch } from 'react-redux'
 import { useState, useRef, useEffect } from 'react'
 import { MapAPI } from '../map/MapAPI'
 import { addTodo, Todo } from '../../state'
@@ -20,7 +19,6 @@ const TodoForm = () => {
     }, [])
 
     const dispatch = useActions()
-    // const dispatch2 = useDispatch()
     const inputEl = useRef<HTMLInputElement>(null)
     const [todo, setTodo] = useState<Todo>(initialState)
 

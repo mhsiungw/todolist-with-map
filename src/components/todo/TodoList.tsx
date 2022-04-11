@@ -4,13 +4,10 @@ import { deleteTodo } from '../../state'
 import { MapAPI } from '../map/MapAPI'
 import { useSelector } from '../../hooks/useSelector'
 import { useActions } from '../../hooks/useActions'
-import { useSelector as _useSelector } from 'react-redux'
-import { RootState } from '../../state'
 
 const TodoList = () => {
     const dispatch = useActions()
     const { todos } = useSelector(({ todoReducer }) => todoReducer)
-    const { todos: _todos } = _useSelector(({ todoReducer }: RootState) => todoReducer)
 
     if (!todos) {
         return null
@@ -33,7 +30,7 @@ const TodoList = () => {
 
     return (
         <ul className="todo__list">
-            {todos.map((todo, index) => (
+            {todos.map((todo) => (
                 <li className="todo__item" onClick={setCenter} data-id={todo.id} key={todo.id}>
                     <div className="todo__desc">
                         <span>{todo.todo}</span>
